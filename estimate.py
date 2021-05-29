@@ -1,14 +1,12 @@
 import unittest
-import random
-import functools
-import math
+import random,math
 
 
 def monte_carlo(i):
     circle=0
     s=0
-    total=0
-    for i in range(i**2):
+    
+    for i in range(i):
         rx=float(random.uniform(-1,1))
         ry=float(random.uniform(-1,1))
         dist=float(math.sqrt(rx**2+ry**2))
@@ -20,18 +18,18 @@ def monte_carlo(i):
         #print(rx,ry,circle,s,"-",pi)
     return pi        
 
-def wallis(n):
-    pi1 = 0.0   
-    for k in range(1, n):
-        x = 4 * (k ** 2)
-        y = x - 1
-        z = float(x) / float(y)
-        if (k == 1):
-            pi1 = z
-        else:
-            pi1 *= z
-    pi1 *= 2
-    return pi1
+def wallis(x):
+    a = 2
+    u = 1
+    for i in range(x):
+        term = a**2 /(a**2 - 1)
+        u *= term
+        a += 2
+
+    return 2*u
+
+#def wallis(h):
+#    return 2 * functools.reduce(lambda x, y: x*y, [(4.0*(i**2))/(4.0*(i**2)-1) for i in range (1, h+1)])
 
 class TestWallis(unittest.TestCase):
     def test_low_iters(self):
